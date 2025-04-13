@@ -9,7 +9,8 @@ class PostController extends Controller
 {
     public function getAll()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('date', 'desc')->get();
+
         return view('posts.all', compact('posts'));
     }
 

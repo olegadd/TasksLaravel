@@ -22,7 +22,12 @@
             @foreach($posts as $post)
                 <tr>
                     <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
+                    <td>
+                        <a href="{{ url('/post/' . $post->id) }}">
+                            {{ $post->title }}
+                        </a>
+                    </td>
+
                     <td>{{ $post->descr }}</td>
                 </tr>
             @endforeach
