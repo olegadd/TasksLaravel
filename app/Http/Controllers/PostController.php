@@ -7,12 +7,19 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function getAll()
+    public function getAll($order = 'date')
     {
-        $posts = Post::orderBy('date', 'desc')->get();
+        $allowed = ['id', 'title', 'date'];
+
+        if ($order === 'title') {
+            $posts = Post::orderByRaw('LENGTH(title) DESC')->get();
+        } else {
+            $posts = Post::orderBy($order, 'desc')->get();
+        }
 
         return view('posts.all', compact('posts'));
     }
+
 
     public function getOne($id)
     {
