@@ -28,8 +28,6 @@ class PostController extends Controller
         return view('posts.all', compact('posts'));
     }
 
-
-
     public function getOne($id)
     {
         $post = Post::find($id);
@@ -39,5 +37,29 @@ class PostController extends Controller
         }
 
         return view('posts.one', compact('post'));
+    }
+
+    public function newPostForm()
+    {
+        return view('posts.new');
+    }
+
+    public function newPost(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:150',
+            'descr' => 'required|string|max:255',
+            'text' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        $post = new Post();
+        $post->title = $validated['title'];
+        $post->descr = $validated['descr'];
+        $post->text = $validated['text'];
+        $post->date = $validated['date'];
+        $post->save();
+
+        return redirect('/post/all')->with('success', 'Статья успешно добавлена!');
     }
 }
