@@ -11,5 +11,6 @@ Route::get('/post/all', [PostController::class, 'getAll']);
 
 Route::get('/post/{id}', [PostController::class, 'getOne'])->where('id', '[0-9]+');
 
-Route::get('/post/all/{order?}', [PostController::class, 'getAll'])
-     ->where('order', 'id|title|date');
+Route::get('/post/all/{order?}/{dir?}', [PostController::class, 'getAll'])
+     ->where('order', 'id|title|date|length')
+     ->where('dir', 'asc|desc');
