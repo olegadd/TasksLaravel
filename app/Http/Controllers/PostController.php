@@ -12,4 +12,15 @@ class PostController extends Controller
         $posts = Post::all();
         return view('posts.all', compact('posts'));
     }
+
+    public function getOne($id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            abort(404, 'Статья не найдена');
+        }
+
+        return view('posts.one', compact('post'));
+    }
 }
